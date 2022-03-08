@@ -31,7 +31,7 @@ class MainActivity : AppCompatActivity() {
 
         AlertDialog.Builder(this)
             .setTitle(getString(R.string.dialog_title))
-            .setMessage(game.guess(num))
+            .setMessage(message)
             .setPositiveButton(getString(R.string.ok)){ dialog, which ->
                 if (game.end) game.reset()
                 updateUI()
