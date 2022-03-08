@@ -10,38 +10,39 @@ import com.vangoog.guessnumber.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
-    var secret = (1..10).random()
-    var counter = 0
+    var game = NumberGame()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        Log.d("MainActivity","secret: $secret")
     }
 
     fun guess(veiw: View){
-        counter++
-        binding.tvCounter.text = counter.toString()
         val num = binding.number.text.toString().toInt()
-        val message = if (num < secret) "Bigger"
-            else if (num > secret) "Smaller"
-            else {
-                secret = (1..10).random()
-                counter = 0
-                "You got it"
-            }
+        val state = game.guess(num)
+        val message = when(state){
+            NumberGame.GameState.BIGGER -> getString(R.string.bigger)
+            NumberGame.GameState.SMALLER -> getString(R.string.smaller)
+            NumberGame.GameState.BINGO -> getString(R.string.bingo)
+            else -> getString(R.string.somehting_goes_wrong)
+
+
+        }
+
         AlertDialog.Builder(this)
-            .setTitle("Guess")
-            .setMessage(message)
-            .setPositiveButton("OK"){ dialog , which ->
-                Log.d("MainActivity", "Reset ")
+            .setTitle(getString(R.string.dialog_title))
+            .setMessage(game.guess(num))
+            .setPositiveButton(getString(R.string.ok)){ dialog, which ->
+                if (game.end) game.reset()
+                updateUI()
             }
             .show()
+        updateUI()
     }
 
-}
-
-fun main() {
+    private fun updateUI() {
+        binding.tvCounter.text = game.counter.toString()
+    }
 
 }
 
