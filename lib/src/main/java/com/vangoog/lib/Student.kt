@@ -1,6 +1,12 @@
 package com.vangoog.lib
             //constructor 可以省略不寫
 open class Student constructor(var name: String, var english: Int, var math: Int){
+    companion object {
+        var pass = 60
+        fun test(){
+
+        }
+    }
     constructor(): this("",0,0){
         println("hi")
     }
@@ -12,7 +18,8 @@ open class Student constructor(var name: String, var english: Int, var math: Int
 //    var math:Float = 0f
 //    Methods
     fun print(){
-        println("$name\t$english\t$math\t${average()}")
+        print("$name\t$english\t$math\t${average()}")
+        if (average() < pass) println("*") else println()
     }
     fun average() = (english+math)/2
     fun highest() = if (english > math) english else math
@@ -26,12 +33,13 @@ open class Student constructor(var name: String, var english: Int, var math: Int
 }
 
 fun main() {
-    val hank = Student("Hank")
+    val hank = Student("Hank",60,40)
 //    val tom  = Student()
     val jack = Student("Jack",85,65)
 //    jack.name = "jack"
 //    jack.english = 85f
 //    jack.math = 65f
+    Student.pass = 60
     jack.print()
     hank.print()
 //    tom.print()
