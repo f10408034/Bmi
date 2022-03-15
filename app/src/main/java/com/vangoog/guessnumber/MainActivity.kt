@@ -2,6 +2,7 @@ package com.vangoog.guessnumber
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.text.style.TtsSpan
 import androidx.fragment.app.Fragment
 import com.vangoog.guessnumber.databinding.ActivityMainBinding
 
@@ -40,6 +41,8 @@ class MainActivity : AppCompatActivity() {
                 else -> true
             }
         }
+        //insert database
+        
     }
 
     private fun initFragments() {
