@@ -4,7 +4,10 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.style.TtsSpan
 import androidx.fragment.app.Fragment
+import androidx.room.Room
+import androidx.room.RoomDatabase
 import com.vangoog.guessnumber.databinding.ActivityMainBinding
+import kotlin.concurrent.thread
 
 class MainActivity : AppCompatActivity() {
     companion object{
@@ -42,7 +45,13 @@ class MainActivity : AppCompatActivity() {
             }
         }
         //insert database
-        
+        val t1 = Transaction(1,"Se7en", "1231321564", 3000, 1)
+        val database = Room.databaseBuilder(this,
+                            TranDatabase::class.java,"trans.db")
+            .build()
+        thread {
+            database.transactionDao().insert(t1)
+        }
     }
 
     private fun initFragments() {

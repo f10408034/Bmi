@@ -11,7 +11,7 @@ interface TransactionDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insert(tran: Transaction)
     @Delete
-    fun delete(id: Int)
+    fun delete(tran: Transaction)
     @Update
     fun update(tran: Transaction)
 }
