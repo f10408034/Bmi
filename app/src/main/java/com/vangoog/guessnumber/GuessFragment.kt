@@ -7,17 +7,18 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import com.vangoog.guessnumber.databinding.FragmentEmptyBinding
+import com.vangoog.guessnumber.databinding.FragmentGuessBinding
 
-class EmptyFragment : Fragment() {
-    lateinit var binding: FragmentEmptyBinding
+
+class GuessFragment : Fragment() {
+    lateinit var binding: FragmentGuessBinding
     val viewModel by viewModels<GuessViewModel>()
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding = FragmentEmptyBinding.inflate(inflater)
+        binding = FragmentGuessBinding.inflate(layoutInflater)
         return binding.root
     }
 
@@ -28,7 +29,7 @@ class EmptyFragment : Fragment() {
             viewModel.guess(num)
         }
         viewModel.counter.observe(viewLifecycleOwner){
-            binding.tvCounter.setText(it.toInt())
+            binding.tvCounter.setText(it.toString())
         }
         viewModel.gameState.observe(viewLifecycleOwner) {state ->
             val message = when(state){
